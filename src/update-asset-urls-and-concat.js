@@ -17,7 +17,7 @@ export default function updateAssetUrlsAndConcat() {
       const {assetLocationTranslation} = renameTable[file.packageName];
       let cssWithUpdatedPaths = file.contents.toString();
       for (let originalUrl of Object.keys(assetLocationTranslation)) {
-        const newUrl = assetLocationTranslation[originalUrl];
+        const newUrl = assetLocationTranslation[originalUrl].replace('\\', '/');
         cssWithUpdatedPaths = cssWithUpdatedPaths.replace(originalUrl, newUrl);
       }
       cssContents.push(cssWithUpdatedPaths);
