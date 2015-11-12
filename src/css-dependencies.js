@@ -10,7 +10,8 @@ export default function cssDependencies(whitelist) {
     try {
       const dependencies = await new DependencyGraph(whitelist).orderedStyleDependencies();
       for (const packageJson of dependencies) {
-        const cssPath = path.resolve(packageJson.path, packageJson.style);
+        // bartvde, if array, just take the first one for now
+        const cssPath = path.resolve(packageJson.path, Array.isArray(packageJson.style) ? packageJson.style[0] : packageJson.style);
         await promisify(stream.write.bind(stream))({
           path: cssPath,
           packageName: packageJson.name
