@@ -18,7 +18,7 @@ export default function updateAssetUrlsAndConcat() {
       let cssWithUpdatedPaths = file.contents.toString();
       for (let originalUrl of Object.keys(assetLocationTranslation)) {
         const newUrl = assetLocationTranslation[originalUrl].replace('\\', '/');
-        cssWithUpdatedPaths = cssWithUpdatedPaths.replace(originalUrl, newUrl);
+        cssWithUpdatedPaths = cssWithUpdatedPaths.replace(new RegExp(originalUrl, 'g'), newUrl);
       }
       cssContents.push(cssWithUpdatedPaths);
       return cssContents;
